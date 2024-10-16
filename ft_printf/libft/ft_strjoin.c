@@ -1,38 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lumattei <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/01 16:57:31 by lumattei          #+#    #+#             */
-/*   Updated: 2024/10/14 16:41:16 by lumattei         ###   ########.fr       */
+/*   Created: 2024/10/07 17:52:13 by lumattei          #+#    #+#             */
+/*   Updated: 2024/10/07 17:57:49 by lumattei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "libft.h"
 
-void	*ft_memset(void *b, int c, size_t len)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
+	char	*ret;
 	size_t	i;
+	size_t	j;
 
 	i = 0;
-	while (i < len)
+	j = 0;
+	ret = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (!ret)
+		return (0);
+	while (s1[i])
 	{
-		*(unsigned char *)(b + i) = (unsigned char)c;
+		ret[i] = s1[i];
 		i++;
 	}
-	return (b);
-}
-
-int main(void)
-{
-	char			b[] ;
-	ft_memset(b, 'A', 10);
-	b[10] = '\0';
-	printf("%s\n", b);
-	ft_memset(b + 10, 'B', 10);
-	b[20] = '\0';
-	printf("%s\n", b);
-	return (0);
+	while (s2[j])
+	{
+		ret[i + j] = s2[j];
+		j++;
+	}
+	ret[i + j] = '\0';
+	return (ret);
 }

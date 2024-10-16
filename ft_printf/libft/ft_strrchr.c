@@ -1,38 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lumattei <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/01 16:57:31 by lumattei          #+#    #+#             */
-/*   Updated: 2024/10/14 16:41:16 by lumattei         ###   ########.fr       */
+/*   Created: 2024/10/06 16:51:38 by lumattei          #+#    #+#             */
+/*   Updated: 2024/10/06 18:26:36 by lumattei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "libft.h"
 
-void	*ft_memset(void *b, int c, size_t len)
+char	*ft_strrchr(const char *s, int c)
 {
-	size_t	i;
+	int	i;
 
-	i = 0;
-	while (i < len)
-	{
-		*(unsigned char *)(b + i) = (unsigned char)c;
-		i++;
-	}
-	return (b);
+	i = ft_strlen(s);
+	while (i >= 0 && s[i] != (unsigned char)c)
+		i--;
+	if (i == -1)
+		return (0);
+	return ((char *)&s[i]);
 }
-
-int main(void)
+/*
+int	main(void)
 {
-	char			b[] ;
-	ft_memset(b, 'A', 10);
-	b[10] = '\0';
-	printf("%s\n", b);
-	ft_memset(b + 10, 'B', 10);
-	b[20] = '\0';
-	printf("%s\n", b);
+	const char	*s = "salut";
+	int c = 'x';
+	printf("%s\n", ft_strrchr(s, c));
 	return (0);
-}
+}*/

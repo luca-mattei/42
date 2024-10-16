@@ -1,38 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lumattei <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/01 16:57:31 by lumattei          #+#    #+#             */
-/*   Updated: 2024/10/14 16:41:16 by lumattei         ###   ########.fr       */
+/*   Created: 2024/10/02 16:11:18 by lumattei          #+#    #+#             */
+/*   Updated: 2024/10/04 03:47:01 by lumattei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "libft.h"
 
-void	*ft_memset(void *b, int c, size_t len)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
 	size_t	i;
 
 	i = 0;
-	while (i < len)
+	if (!src && !dst)
+		return (0);
+	if (src == dst || len == 0)
+		return (dst);
+	if (src > dst)
 	{
-		*(unsigned char *)(b + i) = (unsigned char)c;
-		i++;
+		while (i < len)
+		{
+			*(unsigned char *)(dst + i) = *(unsigned char *)(src + i);
+			i++;
+		}
 	}
-	return (b);
+	else
+	{
+		while (len-- > 0)
+			*(unsigned char *)(dst + len) = *(unsigned char *)(src + len);
+	}
+	return (dst);
 }
-
+/*
 int main(void)
 {
-	char			b[] ;
-	ft_memset(b, 'A', 10);
-	b[10] = '\0';
-	printf("%s\n", b);
-	ft_memset(b + 10, 'B', 10);
-	b[20] = '\0';
+	char b[21] = "salutsalut";
+	char *c = "coucou";
+	ft_memmove(b, c, 6);
+
+
 	printf("%s\n", b);
 	return (0);
-}
+}*/

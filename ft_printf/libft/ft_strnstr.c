@@ -1,38 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lumattei <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/01 16:57:31 by lumattei          #+#    #+#             */
-/*   Updated: 2024/10/14 16:41:16 by lumattei         ###   ########.fr       */
+/*   Created: 2024/10/06 18:20:11 by lumattei          #+#    #+#             */
+/*   Updated: 2024/10/06 19:00:07 by lumattei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "libft.h"
 
-void	*ft_memset(void *b, int c, size_t len)
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
 	size_t	i;
+	size_t	j;
 
 	i = 0;
-	while (i < len)
+	if (!needle[0])
+		return ((char *)haystack);
+	while (haystack[i])
 	{
-		*(unsigned char *)(b + i) = (unsigned char)c;
+		j = 0;
+		if (haystack[i] == needle[j])
+		{
+			while (needle[j] && haystack[i + j] == needle[j] && i + j < len)
+				j++;
+			if (needle[j] == '\0')
+				return ((char *)haystack + i);
+		}
 		i++;
 	}
-	return (b);
-}
-
-int main(void)
-{
-	char			b[] ;
-	ft_memset(b, 'A', 10);
-	b[10] = '\0';
-	printf("%s\n", b);
-	ft_memset(b + 10, 'B', 10);
-	b[20] = '\0';
-	printf("%s\n", b);
 	return (0);
 }
+/*
+int main(void)
+{
+	const char	*s1 = "salut test";
+	const char	*s2 = "";
+	printf("%s\n", strnstr(s1, s2, 2));
+	printf("%s\n", ft_strnstr(s1, s2, 2));
+	return (0);
+}*/

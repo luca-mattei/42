@@ -1,38 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lumattei <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/01 16:57:31 by lumattei          #+#    #+#             */
-/*   Updated: 2024/10/14 16:41:16 by lumattei         ###   ########.fr       */
+/*   Created: 2024/10/02 17:35:45 by lumattei          #+#    #+#             */
+/*   Updated: 2024/10/04 03:56:10 by lumattei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "libft.h"
 
-void	*ft_memset(void *b, int c, size_t len)
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
 	size_t	i;
+	size_t	ret;
 
 	i = 0;
-	while (i < len)
+	ret = ft_strlen(src);
+	if (dstsize == 0)
+		return (ret);
+	while (i < dstsize - 1 && src[i])
 	{
-		*(unsigned char *)(b + i) = (unsigned char)c;
+		dst[i] = src[i];
 		i++;
 	}
-	return (b);
+	if (dstsize != 0)
+		dst[i] = '\0';
+	return (ret);
 }
-
-int main(void)
+/*
+int	main(void)
 {
-	char			b[] ;
-	ft_memset(b, 'A', 10);
-	b[10] = '\0';
-	printf("%s\n", b);
-	ft_memset(b + 10, 'B', 10);
-	b[20] = '\0';
-	printf("%s\n", b);
+	char	s1[20];
+	char	*s2 = "salut";
+	ft_strlcpy(s1, s2, 4);
+//	strlcpy(s1, s2, 4);
+	printf ("%s\n", s1);
 	return (0);
-}
+}*/

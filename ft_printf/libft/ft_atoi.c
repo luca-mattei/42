@@ -1,38 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lumattei <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/01 16:57:31 by lumattei          #+#    #+#             */
-/*   Updated: 2024/10/14 16:41:16 by lumattei         ###   ########.fr       */
+/*   Created: 2024/10/06 19:02:03 by lumattei          #+#    #+#             */
+/*   Updated: 2024/10/07 09:06:08 by lumattei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "libft.h"
 
-void	*ft_memset(void *b, int c, size_t len)
+int	ft_atoi(const char *str)
 {
-	size_t	i;
+	int	sign;
+	int	i;
+	int	res;
 
+	sign = 1;
 	i = 0;
-	while (i < len)
+	res = 0;
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
+		i++;
+	if (str[i] == '-' || str[i] == '+')
 	{
-		*(unsigned char *)(b + i) = (unsigned char)c;
+		if (str[i] == '-')
+			sign *= -1;
 		i++;
 	}
-	return (b);
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		res *= 10;
+		res += (str[i] - 48);
+		i++;
+	}
+	return (res * sign);
 }
-
+/*
 int main(void)
 {
-	char			b[] ;
-	ft_memset(b, 'A', 10);
-	b[10] = '\0';
-	printf("%s\n", b);
-	ft_memset(b + 10, 'B', 10);
-	b[20] = '\0';
-	printf("%s\n", b);
+	const char	*str = "  -12345";
+	printf("%i\n", ft_atoi(str));
+	printf("%i\n", atoi(str));
 	return (0);
-}
+}*/

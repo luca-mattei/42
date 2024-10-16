@@ -1,38 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   memcpy.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lumattei <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/01 16:57:31 by lumattei          #+#    #+#             */
-/*   Updated: 2024/10/14 16:41:16 by lumattei         ###   ########.fr       */
+/*   Created: 2024/10/01 18:38:15 by lumattei          #+#    #+#             */
+/*   Updated: 2024/10/06 17:38:54 by lumattei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "libft.h"
 
-void	*ft_memset(void *b, int c, size_t len)
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
 	size_t	i;
 
 	i = 0;
-	while (i < len)
+	if (dst == src)
+		return (dst);
+	while (i < n)
 	{
-		*(unsigned char *)(b + i) = (unsigned char)c;
+		*(unsigned char *)(dst + i) = *(unsigned char *)(src + i);
 		i++;
 	}
-	return (b);
+	return (dst);
 }
+/*
+#include <stdio.h>
 
 int main(void)
 {
-	char			b[] ;
-	ft_memset(b, 'A', 10);
-	b[10] = '\0';
-	printf("%s\n", b);
-	ft_memset(b + 10, 'B', 10);
-	b[20] = '\0';
-	printf("%s\n", b);
+	const unsigned char *src;
+	unsigned char		dst[10];
+	src = (unsigned char *)"test";
+	ft_memcpy(dst, src, 3);
+	printf("%s\n", dst);
+	dst[3] = '\0';
 	return (0);
-}
+}*/

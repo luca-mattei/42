@@ -1,38 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lumattei <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/01 16:57:31 by lumattei          #+#    #+#             */
-/*   Updated: 2024/10/14 16:41:16 by lumattei         ###   ########.fr       */
+/*   Created: 2024/10/06 18:01:48 by lumattei          #+#    #+#             */
+/*   Updated: 2024/10/06 18:11:30 by lumattei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "libft.h"
 
-void	*ft_memset(void *b, int c, size_t len)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	size_t	i;
+	unsigned char	*str1;
+	unsigned char	*str2;
+	size_t			i;
 
+	str1 = (unsigned char *)s1;
+	str2 = (unsigned char *)s2;
 	i = 0;
-	while (i < len)
+	while (i < n)
 	{
-		*(unsigned char *)(b + i) = (unsigned char)c;
+		if (str1[i] != str2[i])
+			return ((int)str1[i] - (int)str2[i]);
 		i++;
 	}
-	return (b);
-}
-
-int main(void)
-{
-	char			b[] ;
-	ft_memset(b, 'A', 10);
-	b[10] = '\0';
-	printf("%s\n", b);
-	ft_memset(b + 10, 'B', 10);
-	b[20] = '\0';
-	printf("%s\n", b);
 	return (0);
 }
+/*
+int main(void)
+{
+	const void	*s1 = "salut";
+	const void	*s2 = "saxlut";
+	printf("%i\n", ft_memcmp(s1, s2, 0));
+	return (0);
+}*/
