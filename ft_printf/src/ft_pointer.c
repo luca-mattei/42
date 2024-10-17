@@ -6,7 +6,7 @@
 /*   By: lumattei <lumattei@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 18:59:17 by lumattei          #+#    #+#             */
-/*   Updated: 2024/10/16 12:21:43 by lumattei         ###   ########.fr       */
+/*   Updated: 2024/10/17 16:15:51 by lumattei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/ft_printf.h"
@@ -34,7 +34,7 @@ int ft_pointer(void *ptr)
 		i += write(1,"0", 1);
 	else
 	{
-		i += ft_putnbr_base(adr, "0123456789abcdef");
+		ft_putnbr_base(adr, "0123456789abcdef");
 		while (adr > 0)
 		{
 			adr /= 16;
