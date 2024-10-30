@@ -6,20 +6,16 @@
 /*   By: lumattei <lumattei@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 18:59:17 by lumattei          #+#    #+#             */
-/*   Updated: 2024/10/17 16:15:51 by lumattei         ###   ########.fr       */
+/*   Updated: 2024/10/30 17:06:52 by lumattei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/ft_printf.h"
 
-int	ft_putnbr_base(unsigned long n, char *base)
+static void	ft_putnbr_base(unsigned long n, char *base)
 {
-	int	i;
-
-	i = 0;
 	if (n >= 16)
 		ft_putnbr_base(n / 16, base);
-	i += write(1, &base[n % 16], 1);
-	return (i);
+	write(1, &base[n % 16], 1);
 }
 
 

@@ -6,7 +6,7 @@
 /*   By: lumattei <lumattei@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 20:06:43 by lumattei          #+#    #+#             */
-/*   Updated: 2024/10/15 20:53:15 by lumattei         ###   ########.fr       */
+/*   Updated: 2024/10/30 17:15:28 by lumattei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/ft_printf.h"
@@ -36,11 +36,6 @@ static char	*ft_uitoa(unsigned int c)
 	ret[len] = '\0';
 	if (!ret)
 		return (0);
-	if (c == 0)
-	{
-		ret[0] = '0';
-		return (ret);
-	}
 	while (len > 0)
 	{
 		ret[--len] = (c % 10) + 48;
