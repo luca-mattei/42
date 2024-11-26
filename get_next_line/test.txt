@@ -1,3 +1,0 @@
-Bonjour, comment ça va ?
-Je suis en train de tester get_next_line.
-Voici une troisième ligne.
