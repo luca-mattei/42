@@ -19,26 +19,28 @@ OBJS = ${LIBC:.c=.o}
 
 BONUS_OBJS = ${BONUS:.c=.o}
 
-CC = gcc
+CC = cc
 
 CFLAGS = -Wall -Werror -Wextra
 
-.c.o:
-	${CC} ${CFLAGS} -c $< -o $@
+RM = rm -rf
 
-${NAME}: ${OBJS}
-	ar -rsc ${NAME} ${OBJS}
+.c.o:
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(NAME): $(OBJS)
+	ar rcs $(NAME) $(OBJS)
 
 all : $(NAME)
 
-bonus: ${OBJS} ${BONUS_OBJS}
-	ar -rcs ${NAME} ${OBJS} ${BONUS_OBJS}
+bonus: $(OBJS) $(BONUS_OBJS)
+	ar rcs $(NAME) $(OBJS) $(BONUS_OBJS)
 
 clean :
-	rm -rf  ${OBJS} ${BONUS_OBJS}
+	$(RM) $(OBJS) $(BONUS_OBJS)
 
 fclean : clean
-	rm -rf ${NAME}
+	$(RM) $(NAME)
 
 re : fclean all
 

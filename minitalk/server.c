@@ -6,7 +6,7 @@
 /*   By: lumattei <lumattei@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 11:13:39 by lumattei          #+#    #+#             */
-/*   Updated: 2024/12/28 13:16:53 by lumattei         ###   ########.fr       */
+/*   Updated: 2025/01/04 20:00:25 by lumattei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minitalk.h"
