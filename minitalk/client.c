@@ -6,7 +6,7 @@
 /*   By: lumattei <lumattei@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 11:13:51 by lumattei          #+#    #+#             */
-/*   Updated: 2025/01/04 20:03:40 by lumattei         ###   ########.fr       */
+/*   Updated: 2025/01/04 20:10:17 by lumattei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minitalk.h"
@@ -45,10 +45,9 @@ void ft_atob(int pid, char c)
 			kill (pid, SIGUSR1);
 		else
 			kill (pid, SIGUSR2);
-		usleep(100);
+		usleep(50);
 		bit++;
 	}
-	usleep(500);
 }
 
 int	main(int argc, char **argv)
