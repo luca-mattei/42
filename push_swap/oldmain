@@ -1,0 +1,40 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lumattei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/20 15:14:03 by lumattei          #+#    #+#             */
+/*   Updated: 2025/01/20 23:21:51 by lumattei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+#include <stdio.h>
+#include "push_swap.h"
+int    main(void)
+{
+    t_stack_node    **stack;
+    char            **numbers;
+
+    stack = malloc(sizeof(t_stack_node *));
+    if (stack == NULL)
+        return (1);
+    *stack = NULL;
+
+    // Test du split d'abord
+    numbers = ft_split("12 14 42", ' ');
+    if (!numbers)
+    {
+        free(stack);
+        return (1);
+    }
+
+    // Debug print des nombres splittés
+    for (int i = 0; numbers[i]; i++)
+        printf("numbers[%d] = %s\n", i, numbers[i]);
+
+    // Maintenant stack_init
+    stack_init(stack, numbers, true);
+
+    return (0);
+}
