@@ -1,0 +1,48 @@
+{
+  "orderId": "order_1741042912806",
+  "userId": "client",
+  "items": [
+    {
+      "Nom": "Bags 312 - Small backpack Switzerland",
+      "prix": "4.00",
+      "imageUrl": "/images/bags/Bags312.jpg",
+      "categorie": "bags",
+      "quantity": 12
+    },
+    {
+      "Nom": "Bags 313 - Big bag with cities in beige",
+      "prix": "5.00",
+      "imageUrl": "/images/bags/Bags313.jpg",
+      "categorie": "bags",
+      "quantity": 12
+    },
+    {
+      "Nom": "Bags 314 - Big bag with cities in blue",
+      "prix": "5.00",
+      "imageUrl": "/images/bags/Bags314.jpg",
+      "categorie": "bags",
+      "quantity": 12
+    }
+  ],
+  "status": "completed",
+  "date": "2025-03-03T23:01:52.806Z",
+  "lastProcessed": "2025-03-03T23:02:37.396Z",
+  "deliveredItems": [
+    {
+      "Nom": "Bags 312 - Small backpack Switzerland",
+      "quantity": 12,
+      "prix": "4.00"
+    },
+    {
+      "Nom": "Bags 313 - Big bag with cities in beige",
+      "quantity": 12,
+      "prix": "5.00"
+    },
+    {
+      "Nom": "Bags 314 - Big bag with cities in blue",
+      "quantity": 12,
+      "prix": "5.00"
+    }
+  ],
+  "remainingItems": []
+}

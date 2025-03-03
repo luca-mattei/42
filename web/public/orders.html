@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>My Orders</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .order-status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        .status-shipped {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .status-processing {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-partial {
+            background-color: #cce5ff;
+            color: #004085;
+        }
+        
+        .order-details {
+            flex-grow: 1;
+            margin-right: 15px;
+        }
+        
+        .order-total {
+            font-weight: bold;
+        }
+        
+        /* Style pour le message de facture non disponible */
+        .invoice-not-available {
+            color: #6c757d;
+            font-style: italic;
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            margin-left: 15px;
+        }
+        
+        .invoice-not-available i {
+            margin-right: 5px;
+            color: #ffc107;
+        }
+        
+        /* Styles pour les sections de commande partiellement traitée */
+        .order-section-header td {
+            padding: 10px;
+            font-weight: bold;
+            text-align: center;
+            color: white;
+        }
+        
+        .delivered-section {
+            background-color: #28a745;
+        }
+        
+        .pending-section {
+            background-color: #ffc107;
+            color: #212529 !important;
+        }
+        
+        .delivered-item {
+            background-color: rgba(40, 167, 69, 0.1);
+        }
+        
+        .pending-item {
+            background-color: rgba(255, 193, 7, 0.1);
+        }
+        
+        /* Masquer les prix pour les articles en attente */
+        .pending-item .unit-price-column,
+        .pending-item .total-price-column {
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <button id="menuToggle" class="menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <div class="logo-container">
+                <img src="images/logo_discado_noir.png" alt="Discado Logo" id="logo">
+            </div>
+            
+            <div class="header-right">
+                <button id="userMenuToggle" class="icon-btn" aria-label="User menu">
+                    <i class="fas fa-user"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div id="dropdownMenu" class="dropdown-menu">
+        <div class="menu-section">
+            <ul class="category-list">
+                <li class="category-item" data-category="all"><a href="/catalog">Back to Catalog</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="userMenu" class="user-menu">
+        <a href="/profile">My Profile</a>
+        <a href="/catalog">Catalog</a>
+        <a href="/logout">Log Out</a>
+    </div>
+
+    <div id="menuOverlay" class="menu-overlay"></div>
+
+    <main>
+        <div class="order-page-header">
+            <h2>My Orders</h2>
+        </div>
+        
+        <div id="ordersList">
+            <p>Loading your orders...</p>
+        </div>
+    </main>
+
+    <script src="header.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const ordersContainer = document.getElementById('ordersList');
+            
+            // Afficher un message de chargement avec un style plus doux
+            ordersContainer.innerHTML = `
+                <div class="loading-container">
+                    <div class="loading-spinner"></div>
+                    <p>Loading your orders...</p>
+                </div>
+            `;
+
+            function getStatusClass(status) {
+                switch(status) {
+                    case 'shipped':
+                    case 'completed':
+                    case 'delivered':
+                        return 'status-shipped';
+                    case 'partial':
+                        return 'status-partial';
+                    case 'in progress':
+                    case 'pending':
+                    default:
+                        return 'status-processing';
+                }
+            }
+
+            function getReadableStatus(status) {
+                switch(status) {
+                    case 'in progress':
+                    case 'pending':
+                        return 'Processing';
+                    case 'shipped':
+                    case 'completed':
+                    case 'delivered':
+                        return 'Completed';  // Changé de "Shipped" à "Completed"
+                    case 'partial':
+                        return 'Completed';  // Changé de "Partially Shipped" à "Completed"
+                    default:
+                        return status.charAt(0).toUpperCase() + status.slice(1).replace(/_/g, ' ');
+                }
+            }
+
+            fetch('/api/user-orders')
+                .then(response => response.json())
+                .then(orders => {
+                    // Vider le conteneur
+                    ordersContainer.innerHTML = '';
+                    
+                    if (orders.length === 0) {
+                        ordersContainer.innerHTML = '<p class="no-orders-message">You have no orders yet.</p>';
+                        return;
+                    }
+
+                    // Trier les commandes de la plus récente à la plus ancienne
+                    orders.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                    orders.forEach((order, index) => {
+                        const orderDate = new Date(order.date).toLocaleDateString('en-US', {
+                            day: 'numeric',
+                            month: 'long',
+                            year: 'numeric'
+                        });
+
+                        // Calcul du montant total initial
+                        const initialTotalAmount = order.items.reduce((total, item) => 
+                            total + (parseFloat(item.prix) * item.quantity), 0
+                        ).toFixed(2);
+
+                        // Calcul du montant total des articles livrés uniquement
+                        let deliveredTotalAmount = initialTotalAmount;
+                        if (order.status === 'partial' && order.deliveredItems) {
+                            deliveredTotalAmount = order.deliveredItems.reduce((total, item) => 
+                                total + (parseFloat(item.prix) * item.quantity), 0
+                            ).toFixed(2);
+                        }
+
+                        // Créer le contenu de la commande avec un tableau détaillé
+                        const orderCard = document.createElement('div');
+                        orderCard.className = 'order-card';
+                        
+                        // HTML pour la carte de commande
+                        let orderHtml = `
+                            <div class="order-card-header">
+                                <h3>Order #${orders.length - index}</h3>
+                                <span class="order-status ${getStatusClass(order.status)}">
+                                    ${getReadableStatus(order.status)}
+                                </span>
+                            </div>
+                            <div class="order-date">${orderDate}</div>
+                            
+                            <table class="order-details-table">
+                                <thead>
+                                    <tr>
+                                        <th class="qty-column">Qty</th>
+                                        <th class="product-name-column">Product</th>
+                                        <th class="unit-price-column">Unit Price</th>
+                                        <th class="total-price-column">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>`;
+                        
+                        // Pour les commandes partiellement livrées, afficher les articles déjà livrés
+                        if (order.status === 'partial' && order.deliveredItems && order.deliveredItems.length > 0) {
+                            
+                            order.deliveredItems.forEach(item => {
+                                const itemTotal = parseFloat(item.prix) * item.quantity;
+                                
+                                orderHtml += `
+                                    <tr class="delivered-item">
+                                        <td class="qty-column">${item.quantity}</td>
+                                        <td class="product-name-column">${item.Nom}</td>
+                                        <td class="unit-price-column">${parseFloat(item.prix).toFixed(2)} CHF</td>
+                                        <td class="total-price-column">${itemTotal.toFixed(2)} CHF</td>
+                                    </tr>`;
+                            });
+                            
+                            // Ajouter une section pour les articles restants à livrer
+                            if (order.remainingItems && order.remainingItems.length > 0) {
+                                orderHtml += `
+                                    <tr class="order-section-header">
+                                        <td colspan="4" class="pending-section">PENDING ITEMS</td>
+                                    </tr>`;
+                                
+                                order.remainingItems.forEach(item => {
+                                    orderHtml += `
+                                        <tr class="pending-item">
+                                            <td class="qty-column">${item.quantity}</td>
+                                            <td class="product-name-column">${item.Nom}</td>
+                                            <td class="unit-price-column">-</td>
+                                            <td class="total-price-column">-</td>
+                                        </tr>`;
+                                });
+                            }
+                        } else {
+                            // Pour les commandes normales ou complètes, afficher tous les articles
+                            order.items.forEach(item => {
+                                const itemTotal = parseFloat(item.prix) * item.quantity;
+                                
+                                orderHtml += `
+                                    <tr>
+                                        <td class="qty-column">${item.quantity}</td>
+                                        <td class="product-name-column">${item.Nom}</td>
+                                        <td class="unit-price-column">${parseFloat(item.prix).toFixed(2)} CHF</td>
+                                        <td class="total-price-column">${itemTotal.toFixed(2)} CHF</td>
+                                    </tr>`;
+                            });
+                        }
+                        
+                        orderHtml += `
+                                </tbody>
+                            </table>
+                            
+                            <div class="order-summary">
+                                <div class="order-summary-total">
+                                    Total: ${order.status === 'partial' ? deliveredTotalAmount : initialTotalAmount} CHF
+                                    ${order.status !== 'pending' && order.status !== 'in progress' ? 
+                                        `<button class="download-invoice-btn" data-order-id="${order.orderId || index}">
+                                            <i class="fas fa-file-pdf"></i> Download Invoice
+                                        </button>` : 
+                                        `<span class="invoice-not-available">
+                                            <i class="fas fa-info-circle"></i> Invoice will be available after delivery
+                                        </span>`
+                                    }
+                                </div>
+                            </div>
+                        `;
+                        
+                        orderCard.innerHTML = orderHtml;
+                        ordersContainer.appendChild(orderCard);
+                    });
+
+                    // Ajouter les écouteurs d'événements pour les boutons de téléchargement
+                    document.querySelectorAll('.download-invoice-btn').forEach(button => {
+                        button.addEventListener('click', function() {
+                            const orderIdOrIndex = this.getAttribute('data-order-id');
+                            window.open(`/api/download-invoice/${orderIdOrIndex}`, '_blank');
+                        });
+                    });
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    ordersContainer.innerHTML = 
+                        '<p class="error-message">Error loading orders. Please try again later.</p>';
+                });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Administration Clients - Discado</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="clients.css">
+    <!-- Ajouter une police Google pour améliorer la typographie -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo-container">
+                <img src="/images/logo_discado_noir.png" alt="Discado Logo">
+            </div>
+            <div class="admin-user">
+                <i class="fas fa-user-shield"></i>
+                <span>Admin</span>
+                <a href="/logout" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Déconnexion
+                </a>
+            </div>
+        </div>
+    </header>
+
+        <!-- Tabs Navigation -->
+    <div class="admin-tabs">
+        <div class="tabs-container">
+            <a href="/admin" class="tab">
+                <i class="fas fa-shopping-cart"></i> Gestion des commandes
+            </a>
+            <a href="/admin/order-history" class="tab">
+                <i class="fas fa-history"></i> Historique des commandes
+            </a>
+            <a href="/admin/clients" class="tab">
+                <i class="fas fa-users"></i> Client Database
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <h1 class="page-title">
+            <i class="fas fa-database"></i> Base de données clients
+        </h1>
+
+        <!-- Search bar -->
+        <div class="search-container">
+            <input type="text" id="searchInput" class="search-input" 
+                placeholder="Rechercher un client par nom, email, boutique...">
+            <button id="searchBtn" class="search-btn">
+                <i class="fas fa-search"></i> Rechercher
+            </button>
+        </div>
+
+        <!-- Client List -->
+        <div class="client-list">
+            <table class="client-table">
+                <thead>
+                    <tr>
+                        <th>ID Client</th>
+                        <th>Nom / Boutique</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="clientTableBody">
+                    <tr>
+                        <td colspan="3" class="loading">Chargement des clients...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- Client Details Modal -->
+    <div id="clientModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 id="clientDetailsTitle" class="client-details-title">Détails du client</h2>
+            
+            <div id="clientDetailsContent">
+                <!-- Les détails du client seront chargés ici dynamiquement -->
+            </div>
+        </div>
+    </div>
+        <!-- Modal pour les détails de commande -->
+    <div id="orderDetailsModal" class="modal order-details-modal">
+        <div class="modal-content">
+            <span class="close-order-modal">&times;</span>
+            <h2 id="orderModalTitle" class="order-details-title">Détails de la commande</h2>
+            <div id="orderModalContent">
+                <!-- Le contenu sera chargé dynamiquement -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Conteneur de notifications -->
+    <div id="notification-container"></div>
+
+    <!-- Inclure les scripts JS -->
+    <script src="/admin/admin.js"></script>
+    <script src="/admin/clients.js"></script>
+</body>
+</html>

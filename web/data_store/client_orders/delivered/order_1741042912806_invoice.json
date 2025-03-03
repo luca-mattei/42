@@ -1,0 +1,23 @@
+{
+  "orderId": "order_1741042912806",
+  "userId": "client",
+  "invoiceDate": "2025-03-03T23:02:37.396Z",
+  "items": [
+    {
+      "Nom": "Bags 312 - Small backpack Switzerland",
+      "quantity": 12,
+      "prix": "4.00"
+    },
+    {
+      "Nom": "Bags 313 - Big bag with cities in beige",
+      "quantity": 12,
+      "prix": "5.00"
+    },
+    {
+      "Nom": "Bags 314 - Big bag with cities in blue",
+      "quantity": 12,
+      "prix": "5.00"
+    }
+  ],
+  "originalOrderDate": "2025-03-03T23:01:52.806Z"
+}

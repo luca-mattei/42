@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>My Profile</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Font Awesome pour les icônes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .profile-form {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .form-group input:focus {
+            border-color: #2575fc;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(37, 117, 252, 0.2);
+        }
+        
+        .form-group input:required {
+            border-left: 3px solid #2575fc;
+        }
+        
+        .form-group input:invalid {
+            border-color: #e74c3c;
+        }
+        
+        .save-btn {
+            padding: 12px 25px;
+            background-color: #2575fc;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.2s;
+        }
+        
+        .save-btn:hover {
+            background-color: #1a5cb8;
+        }
+        
+        .profile-section {
+            margin-bottom: 30px;
+        }
+        
+        .profile-section h3 {
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .required-fields-note {
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .input-error {
+            border-color: #e74c3c !important;
+        }
+        
+        .error-message {
+            color: #e74c3c;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        /* Style for two-column layout */
+        .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 0;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        /* Format hint for phone */
+        .format-hint {
+            font-size: 12px;
+            color: #666;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header compact -->
+    <header>
+        <div class="header-container">
+            <button id="menuToggle" class="menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <div class="logo-container">
+                <img src="images/logo_discado_noir.png" alt="Discado Logo" id="logo">
+            </div>
+            
+            <div class="header-right">
+                <button id="userMenuToggle" class="icon-btn" aria-label="User menu">
+                    <i class="fas fa-user"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Menu déroulant -->
+    <div id="dropdownMenu" class="dropdown-menu">
+        <div class="menu-section">
+            <ul class="category-list">
+                <li class="category-item" data-category="all"><a href="/catalog">Back to Catalog</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Menu utilisateur -->
+    <div id="userMenu" class="user-menu">
+        <a href="/orders">My Orders</a>
+        <a href="/profile" class="active">My Profile</a>
+        <a href="/logout">Log Out</a>
+    </div>
+
+    <!-- Overlay pour fermer les menus -->
+    <div id="menuOverlay" class="menu-overlay"></div>
+
+    <!-- Contenu principal -->
+    <main>
+        <div class="order-page-header">
+            <h2>My Profile</h2>
+        </div>
+        
+        <div class="profile-form">
+            <form id="profileForm">
+                <div class="profile-section">
+                    <h3>Personal Information</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name*</label>
+                            <input type="text" id="firstName" name="firstName" placeholder="Your first name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name*</label>
+                            <input type="text" id="lastName" name="lastName" placeholder="Your last name" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email*</label>
+                        <input type="email" id="email" name="email" placeholder="Your email address" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number*</label>
+                        <input type="tel" id="phone" name="phone" placeholder="0781234567" required>
+                    </div>
+                </div>
+                
+                <div class="profile-section">
+                    <h3>Shop Information</h3>
+                    <div class="form-group">
+                        <label for="shopName">Shop's Name*</label>
+                        <input type="text" id="shopName" name="shopName" placeholder="Your shop name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="shopAddress">Shop Address*</label>
+                        <input type="text" id="shopAddress" name="shopAddress" placeholder="Shop street address" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="shopCity">Shop City*</label>
+                            <input type="text" id="shopCity" name="shopCity" placeholder="Shop city" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="shopZipCode">Shop Zip Code*</label>
+                            <input type="text" id="shopZipCode" name="shopZipCode" placeholder="Shop postal code" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <p class="required-fields-note">* All fields are required</p>
+                <button type="submit" class="save-btn">Save Profile</button>
+            </form>
+        </div>
+        
+        <!-- Notification container -->
+        <div id="notification-container"></div>
+    </main>
+
+    <script src="header.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Récupérer le profil utilisateur existant
+            fetchUserProfile();
+            
+            // Gérer la soumission du formulaire
+            document.getElementById('profileForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                // Vérifier si tous les champs sont remplis
+                if (validateForm()) {
+                    saveUserProfile();
+                }
+            });
+        });
+        
+        // Fonction pour valider le formulaire
+        function validateForm() {
+            const inputs = document.querySelectorAll('#profileForm input[required]');
+            let isValid = true;
+            let firstEmptyField = null;
+            
+            // Vérifier chaque champ obligatoire
+            inputs.forEach(input => {
+                if (!input.value.trim()) {
+                    isValid = false;
+                    input.classList.add('input-error');
+                    
+                    // Mémoriser le premier champ vide pour le focus
+                    if (!firstEmptyField) {
+                        firstEmptyField = input;
+                    }
+                } else {
+                    input.classList.remove('input-error');
+                }
+            });
+            
+            // Si le formulaire n'est pas valide, afficher une notification et mettre le focus sur le premier champ vide
+            if (!isValid) {
+                showNotification('Please fill in all required fields', 'error');
+                if (firstEmptyField) {
+                    firstEmptyField.focus();
+                }
+            }
+            
+            return isValid;
+        }
+        
+        // Fonction pour récupérer le profil de l'utilisateur
+        function fetchUserProfile() {
+            fetch('/api/user-profile')
+                .then(response => response.json())
+                .then(profileData => {
+                    // Remplir le formulaire avec les données existantes
+                    if (profileData) {
+                        // Split fullName into firstName and lastName if needed
+                        if (profileData.fullName && !profileData.firstName) {
+                            const nameParts = profileData.fullName.split(' ');
+                            if (nameParts.length > 1) {
+                                document.getElementById('firstName').value = nameParts[0] || '';
+                                document.getElementById('lastName').value = nameParts.slice(1).join(' ') || '';
+                            } else {
+                                document.getElementById('firstName').value = profileData.fullName || '';
+                            }
+                        } else {
+                            document.getElementById('firstName').value = profileData.firstName || '';
+                            document.getElementById('lastName').value = profileData.lastName || '';
+                        }
+                        
+                        document.getElementById('email').value = profileData.email || '';
+                        document.getElementById('phone').value = profileData.phone || '';
+                        document.getElementById('shopName').value = profileData.shopName || '';
+                        document.getElementById('shopAddress').value = profileData.shopAddress || profileData.address || '';
+                        document.getElementById('shopCity').value = profileData.shopCity || profileData.city || '';
+                        document.getElementById('shopZipCode').value = profileData.shopZipCode || profileData.postalCode || '';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching profile:', error);
+                    showNotification('Error loading profile data', 'error');
+                });
+        }
+        
+        // Fonction pour enregistrer le profil
+        function saveUserProfile() {
+            const profileData = {
+                firstName: document.getElementById('firstName').value.trim(),
+                lastName: document.getElementById('lastName').value.trim(),
+                // Keep fullName for backward compatibility
+                fullName: document.getElementById('firstName').value.trim() + ' ' + document.getElementById('lastName').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+                shopName: document.getElementById('shopName').value.trim(),
+                shopAddress: document.getElementById('shopAddress').value.trim(),
+                shopCity: document.getElementById('shopCity').value.trim(),
+                shopZipCode: document.getElementById('shopZipCode').value.trim(),
+                // Keep these fields for backward compatibility
+                address: document.getElementById('shopAddress').value.trim(),
+                city: document.getElementById('shopCity').value.trim(),
+                postalCode: document.getElementById('shopZipCode').value.trim()
+            };
+            
+            fetch('/api/save-profile', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(profileData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showNotification('Profile saved successfully!', 'success');
+                    
+                    // Si le profil est complet, rediriger vers le catalogue
+                    if (data.isProfileComplete) {
+                        showNotification('Redirecting to catalog...', 'info');
+                        setTimeout(() => {
+                            window.location.href = '/catalog';
+                        }, 1500); // Rediriger après 1.5 secondes
+                    }
+                } else {
+                    showNotification('Error saving profile', 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error saving profile:', error);
+                showNotification('Error saving profile', 'error');
+            });
+        }
+        
+        // Fonction pour afficher les notifications
+        function showNotification(message, type = 'success') {
+            const container = document.getElementById('notification-container');
+            
+            // Créer la notification
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            
+            // Icône selon le type
+            let icon = '✓';
+            if (type === 'error') icon = '✕';
+            if (type === 'info') icon = 'ℹ';
+            
+            // Structure de la notification
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <div class="notification-icon">${icon}</div>
+                    <div class="notification-message">${message}</div>
+                </div>
+                <div class="notification-progress">
+                    <div class="notification-progress-bar"></div>
+                </div>
+            `;
+            
+            // Ajouter au conteneur
+            container.appendChild(notification);
+            
+            // Supprimer après l'animation
+            setTimeout(() => {
+                notification.remove();
+            }, 4000);
+        }
+        
+        // Ajouter des écouteurs d'événements pour supprimer l'état d'erreur lorsque l'utilisateur commence à saisir
+        document.querySelectorAll('#profileForm input[required]').forEach(input => {
+            input.addEventListener('input', function() {
+                if (this.value.trim()) {
+                    this.classList.remove('input-error');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
