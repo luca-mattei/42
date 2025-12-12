@@ -1,30 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lumattei <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: lumattei <lumattei@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/01 15:50:19 by lumattei          #+#    #+#             */
-/*   Updated: 2025/08/27 13:20:54 by lumattei         ###   ########.fr       */
+/*   Created: 2024/10/11 03:14:01 by lumattei          #+#    #+#             */
+/*   Updated: 2024/10/11 03:21:45 by lumattei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-size_t	ft_strlen(const char *s)
+void	ft_putchar_fd(char c, int fd)
 {
-	size_t	i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
+	write(fd, &c, 1);
 }
-/*
-#include <stdio.h>
-
-int	main(void)
-{
-	printf("%lu\n", ft_strlen("salut"));
-	return (0);
-}*/

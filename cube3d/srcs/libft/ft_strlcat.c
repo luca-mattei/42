@@ -1,40 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lumattei <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/01 18:38:15 by lumattei          #+#    #+#             */
-/*   Updated: 2024/10/06 17:38:54 by lumattei         ###   ########.fr       */
+/*   Created: 2024/10/04 03:12:11 by lumattei          #+#    #+#             */
+/*   Updated: 2024/10/04 16:11:39 by lumattei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-void	*ft_memcpy(void *dst, const void *src, size_t n)
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
 	size_t	i;
+	size_t	j;
+	size_t	len_src;
+	size_t	len_dst;
 
 	i = 0;
-	if (dst == src)
-		return (dst);
-	while (i < n)
+	len_src = ft_strlen(src);
+	len_dst = ft_strlen(dst);
+	j = len_dst;
+	if (dstsize == 0)
+		return (len_src);
+	if (dstsize < len_dst)
+		return (dstsize + len_src);
+	while (src[i] && (i + len_dst) < (dstsize - 1))
 	{
-		*(unsigned char *)(dst + i) = *(unsigned char *)(src + i);
+		dst[j + i] = src[i];
 		i++;
 	}
-	return (dst);
+	dst[i + j] = '\0';
+	return (len_dst + len_src);
 }
 /*
-#include <stdio.h>
-
 int main(void)
 {
-	const unsigned char *src;
-	unsigned char		dst[10];
-	src = (unsigned char *)"test";
-	ft_memcpy(dst, src, 3);
+	char	dst[20] = "Ho ";
+	const char	*src = "oui!";
+//	size_t	i;
+	ft_strlcat(dst, src, 0);
 	printf("%s\n", dst);
-	dst[3] = '\0';
+//	printf("%lu\n", i);
 	return (0);
 }*/

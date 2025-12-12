@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lumattei <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/01 15:50:19 by lumattei          #+#    #+#             */
-/*   Updated: 2025/08/27 13:20:54 by lumattei         ###   ########.fr       */
+/*   Created: 2024/10/07 15:26:38 by lumattei          #+#    #+#             */
+/*   Updated: 2024/10/08 03:43:57 by lumattei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-size_t	ft_strlen(const char *s)
+char	*ft_strdup(const char *s1)
 {
+	char	*s;
 	size_t	i;
 
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
+	i = ft_strlen(s1);
+	s = malloc(i + 1);
+	if (!s)
+		return (0);
+	ft_memcpy(s, s1, i);
+	s[i] = '\0';
+	return (s);
 }
-/*
-#include <stdio.h>
-
-int	main(void)
-{
-	printf("%lu\n", ft_strlen("salut"));
-	return (0);
-}*/

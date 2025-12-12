@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lumattei <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: lumattei <lumattei@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/01 15:50:19 by lumattei          #+#    #+#             */
-/*   Updated: 2025/08/27 13:20:54 by lumattei         ###   ########.fr       */
+/*   Created: 2024/10/11 03:41:26 by lumattei          #+#    #+#             */
+/*   Updated: 2024/10/11 03:51:03 by lumattei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-size_t	ft_strlen(const char *s)
+void	ft_putnbr_fd(int n, int fd)
 {
-	size_t	i;
+	char	c;
+	long	nb;
 
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
+	nb = n;
+	if (nb < 0)
+	{
+		write(fd, "-", 1);
+		nb = -nb;
+	}
+	if (nb >= 10)
+		ft_putnbr_fd(nb / 10, fd);
+	c = nb % 10 + 48;
+	write(fd, &c, 1);
 }
-/*
-#include <stdio.h>
-
-int	main(void)
-{
-	printf("%lu\n", ft_strlen("salut"));
-	return (0);
-}*/

@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lumattei <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/01 15:50:19 by lumattei          #+#    #+#             */
-/*   Updated: 2025/08/27 13:20:54 by lumattei         ###   ########.fr       */
+/*   Created: 2024/10/06 17:04:57 by lumattei          #+#    #+#             */
+/*   Updated: 2024/10/06 17:33:46 by lumattei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-size_t	ft_strlen(const char *s)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	size_t	i;
 
 	i = 0;
-	while (s[i])
+	while (s1[i] && s1[i] == s2[i] && i < n)
 		i++;
-	return (i);
+	if (i == n)
+		return (0);
+	return ((unsigned char) s1[i] - (unsigned char) s2[i]);
 }
-/*
-#include <stdio.h>
-
-int	main(void)
-{
-	printf("%lu\n", ft_strlen("salut"));
-	return (0);
-}*/

@@ -1,30 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_lstlast_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lumattei <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: lumattei <lumattei@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/01 15:50:19 by lumattei          #+#    #+#             */
-/*   Updated: 2025/08/27 13:20:54 by lumattei         ###   ########.fr       */
+/*   Created: 2024/10/13 03:17:08 by lumattei          #+#    #+#             */
+/*   Updated: 2024/10/13 03:30:55 by lumattei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-size_t	ft_strlen(const char *s)
+t_list	*ft_lstlast(t_list *lst)
 {
-	size_t	i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
+	while (lst && lst->next != NULL)
+		lst = lst->next;
+	return (lst);
 }
-/*
-#include <stdio.h>
-
-int	main(void)
-{
-	printf("%lu\n", ft_strlen("salut"));
-	return (0);
-}*/

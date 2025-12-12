@@ -1,30 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   memcpy.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lumattei <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/01 15:50:19 by lumattei          #+#    #+#             */
-/*   Updated: 2025/08/27 13:20:54 by lumattei         ###   ########.fr       */
+/*   Created: 2024/10/01 18:38:15 by lumattei          #+#    #+#             */
+/*   Updated: 2024/10/06 17:38:54 by lumattei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-size_t	ft_strlen(const char *s)
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
 	size_t	i;
 
 	i = 0;
-	while (s[i])
+	if (dst == src)
+		return (dst);
+	while (i < n)
+	{
+		*(unsigned char *)(dst + i) = *(unsigned char *)(src + i);
 		i++;
-	return (i);
+	}
+	return (dst);
 }
 /*
 #include <stdio.h>
 
-int	main(void)
+int main(void)
 {
-	printf("%lu\n", ft_strlen("salut"));
+	const unsigned char *src;
+	unsigned char		dst[10];
+	src = (unsigned char *)"test";
+	ft_memcpy(dst, src, 3);
+	printf("%s\n", dst);
+	dst[3] = '\0';
 	return (0);
 }*/

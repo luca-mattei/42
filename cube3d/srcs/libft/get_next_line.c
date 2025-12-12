@@ -6,10 +6,10 @@
 /*   By: lumattei <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 19:10:27 by lumattei          #+#    #+#             */
-/*   Updated: 2025/08/27 13:26:33 by lumattei         ###   ########.fr       */
+/*   Updated: 2025/08/27 13:48:20 by lumattei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "get_next_line.h"
+#include "libft.h"
 
 static char	*get_line(char *s)
 {
@@ -17,6 +17,8 @@ static char	*get_line(char *s)
 	char	*line;
 
 	i = 0;
+	if (!s)
+		return (NULL);
 	while (s[i] && s[i] != '\n')
 		i++;
 	if (s[i] == '\n')
@@ -31,6 +33,8 @@ static char	*get_line(char *s)
 		line[i] = s[i];
 		i++;
 	}
+	if (s[i] == '\n')
+		line[i] = '\n';
 	return (line);
 }
 
@@ -45,13 +49,16 @@ static char	*get_rest(char *s)
 		i++;
 	if (s[i] == '\n')
 		i++;
-	rest = (char *)malloc(sizeof(char) * (ft_strlen(s) - i + 1));
+	if (!s[i])
+		return (free(s), NULL);
+	rest = (char *)malloc(sizeof(char) * (ft_strlen_gnl(s) - i + 1));
 	if (!rest)
 		return (NULL);
 	j = 0;
 	while (s[i])
 		rest[j++] = s[i++];
 	rest[j] = '\0';
+	free(s);
 	return (rest);
 }
 
@@ -68,41 +75,20 @@ char	*get_next_line(int fd)
 	if (!buf)
 		return (NULL);
 	nbyte = 1;
-	while (!ft_strchr(s, '\n') && nbyte != 0)
+	while (!ft_strchr_gnl(s, '\n') && nbyte != 0)
 	{
 		nbyte = read(fd, buf, BUFFER_SIZE);
 		if (nbyte < 0)
 			return (free(buf), free(s), NULL);
 		buf[nbyte] = '\0';
-		s = ft_strjoin(s, buf);
+		s = ft_strjoin_gnl(s, buf);
 	}
-	if (nbyte == 0)
-		return (free(buf), NULL);
+	free(buf);
+	if (!s || !*s)
+		return (free(s), s = NULL, NULL);
 	line = get_line(s);
 	s = get_rest(s);
 	return (line);
-}
-
-
-int main(void)
-{
-	char *s;
-    int fd = open("test.txt", O_RDONLY);
-    if (fd == -1)
-	{
-        perror("Erreur lors de l'ouverture du fichier");
-        return 1;
-	}
-	s = get_next_line(fd);
-    printf("%s\n", s);
-	s = get_next_line(fd);
-    printf("%s\n", s);
-	s = get_next_line(fd);
-    printf("%s\n", s);
-	s = get_next_line(fd);
-    printf("%s\n", s);
-    close(fd);
-    return 0;
 }
 
 /*
@@ -114,7 +100,7 @@ int main(void)
 	char *line;
 	while ((line = get_next_line(fd)) != NULL)
 	{
-		printf("%s\n", line);
+		printf("%s", line);
 		free (line);
 	}
 	close(fd);

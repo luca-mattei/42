@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lumattei <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/01 15:50:19 by lumattei          #+#    #+#             */
-/*   Updated: 2025/08/27 13:20:54 by lumattei         ###   ########.fr       */
+/*   Created: 2024/10/01 15:18:31 by lumattei          #+#    #+#             */
+/*   Updated: 2024/10/01 16:48:39 by lumattei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
 
-size_t	ft_strlen(const char *s)
+int	ft_isdigit(int c)
 {
-	size_t	i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
+	return (c >= '0' && c <= '9');
 }
 /*
 #include <stdio.h>
+#include <ctype.h>
 
-int	main(void)
+int main(int argc, char **argv)
 {
-	printf("%lu\n", ft_strlen("salut"));
+	(void)argc;
+	printf("%d\n", ft_isdigit(argv[1][0]));
+	printf("%d\n", ft_isdigit(argv[1][0]));
 	return (0);
 }*/

@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lumattei <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/01 15:50:19 by lumattei          #+#    #+#             */
-/*   Updated: 2025/08/27 13:20:54 by lumattei         ###   ########.fr       */
+/*   Created: 2024/10/23 19:08:15 by lumattei          #+#    #+#             */
+/*   Updated: 2024/11/14 13:32:15 by lumattei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
+# include <fcntl.h>
+# include <stdlib.h>
+# include <stddef.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <string.h>
 
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
-/*
-#include <stdio.h>
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 12
+# endif
 
-int	main(void)
-{
-	printf("%lu\n", ft_strlen("salut"));
-	return (0);
-}*/
+char		*get_next_line(int fd);
+size_t		ft_strlen(const char *s);
+char		*ft_strchr(char *s, int c);
+char		*ft_strjoin(char *s1, char *s2);
+
+#endif

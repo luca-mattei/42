@@ -1,30 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lumattei <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/01 15:50:19 by lumattei          #+#    #+#             */
-/*   Updated: 2025/08/27 13:20:54 by lumattei         ###   ########.fr       */
+/*   Created: 2024/10/06 18:01:48 by lumattei          #+#    #+#             */
+/*   Updated: 2024/10/06 18:11:30 by lumattei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-size_t	ft_strlen(const char *s)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	size_t	i;
+	unsigned char	*str1;
+	unsigned char	*str2;
+	size_t			i;
 
+	str1 = (unsigned char *)s1;
+	str2 = (unsigned char *)s2;
 	i = 0;
-	while (s[i])
+	while (i < n)
+	{
+		if (str1[i] != str2[i])
+			return ((int)str1[i] - (int)str2[i]);
 		i++;
-	return (i);
+	}
+	return (0);
 }
 /*
-#include <stdio.h>
-
-int	main(void)
+int main(void)
 {
-	printf("%lu\n", ft_strlen("salut"));
+	const void	*s1 = "salut";
+	const void	*s2 = "saxlut";
+	printf("%i\n", ft_memcmp(s1, s2, 0));
 	return (0);
 }*/
