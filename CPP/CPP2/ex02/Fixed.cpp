@@ -1,7 +1,6 @@
 #include "Fixed.hpp"
 #include <cmath>
 
-// ============= Constructeurs et destructeur =============
 
 Fixed::Fixed(void) : _rawBits(0)
 {
@@ -34,8 +33,6 @@ Fixed::~Fixed(void)
 {
 }
 
-// ============= Getters/Setters =============
-
 int Fixed::getRawBits(void) const
 {
     return this->_rawBits;
@@ -45,8 +42,6 @@ void Fixed::setRawBits(int const raw)
 {
     this->_rawBits = raw;
 }
-
-// ============= Conversions =============
 
 float Fixed::toFloat(void) const
 {
@@ -58,7 +53,6 @@ int Fixed::toInt(void) const
     return this->_rawBits >> _fractionalBits;
 }
 
-// ============= Opérateurs de comparaison =============
 
 bool Fixed::operator>(const Fixed& other) const
 {
@@ -89,8 +83,6 @@ bool Fixed::operator!=(const Fixed& other) const
 {
     return this->_rawBits != other._rawBits;
 }
-
-// ============= Opérateurs arithmétiques =============
 
 Fixed Fixed::operator+(const Fixed& other) const
 {
@@ -124,16 +116,12 @@ Fixed Fixed::operator/(const Fixed& other) const
     return result;
 }
 
-// ============= Incrémentation/Décrémentation =============
-
-// Pré-incrémentation (++a) : incrémente puis retourne
 Fixed& Fixed::operator++(void)
 {
     this->_rawBits++;
     return *this;
 }
 
-// Post-incrémentation (a++) : retourne puis incrémente
 Fixed Fixed::operator++(int)
 {
     Fixed temp(*this);
@@ -141,14 +129,12 @@ Fixed Fixed::operator++(int)
     return temp;
 }
 
-// Pré-décrémentation (--a) : décrémente puis retourne
 Fixed& Fixed::operator--(void)
 {
     this->_rawBits--;
     return *this;
 }
 
-// Post-décrémentation (a--) : retourne puis décrémente
 Fixed Fixed::operator--(int)
 {
     Fixed temp(*this);
@@ -156,7 +142,6 @@ Fixed Fixed::operator--(int)
     return temp;
 }
 
-// ============= Fonctions statiques min/max =============
 
 Fixed& Fixed::min(Fixed& a, Fixed& b)
 {
@@ -177,8 +162,6 @@ const Fixed& Fixed::max(const Fixed& a, const Fixed& b)
 {
     return (a > b) ? a : b;
 }
-
-// ============= Surcharge de << =============
 
 std::ostream& operator<<(std::ostream& out, const Fixed& fixed)
 {

@@ -10,7 +10,6 @@ private:
     static const int    _fractionalBits = 8;
 
 public:
-    // Constructeurs et destructeur (Orthodox Canonical Form)
     Fixed(void);
     Fixed(const int n);
     Fixed(const float n);
@@ -18,15 +17,12 @@ public:
     Fixed& operator=(const Fixed& other);
     ~Fixed(void);
 
-    // Getters/Setters
     int     getRawBits(void) const;
     void    setRawBits(int const raw);
 
-    // Conversions
     float   toFloat(void) const;
     int     toInt(void) const;
 
-    // Opérateurs de comparaison
     bool    operator>(const Fixed& other) const;
     bool    operator<(const Fixed& other) const;
     bool    operator>=(const Fixed& other) const;
@@ -34,26 +30,22 @@ public:
     bool    operator==(const Fixed& other) const;
     bool    operator!=(const Fixed& other) const;
 
-    // Opérateurs arithmétiques
     Fixed   operator+(const Fixed& other) const;
     Fixed   operator-(const Fixed& other) const;
     Fixed   operator*(const Fixed& other) const;
     Fixed   operator/(const Fixed& other) const;
 
-    // Opérateurs d'incrémentation/décrémentation
-    Fixed&  operator++(void);       // Pré-incrémentation: ++a
-    Fixed   operator++(int);        // Post-incrémentation: a++
-    Fixed&  operator--(void);       // Pré-décrémentation: --a
-    Fixed   operator--(int);        // Post-décrémentation: a--
+    Fixed&  operator++(void);
+    Fixed   operator++(int);
+    Fixed&  operator--(void);
+    Fixed   operator--(int);
 
-    // Fonctions statiques min/max
     static Fixed&       min(Fixed& a, Fixed& b);
     static const Fixed& min(const Fixed& a, const Fixed& b);
     static Fixed&       max(Fixed& a, Fixed& b);
     static const Fixed& max(const Fixed& a, const Fixed& b);
 };
 
-// Surcharge de l'opérateur 
 std::ostream& operator<<(std::ostream& out, const Fixed& fixed);
 
 #endif
