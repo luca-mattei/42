@@ -12,7 +12,7 @@ ClapTrap::ClapTrap(const std::string& name) : _name(name), _hitPoints(10), _ener
 
 ClapTrap::ClapTrap(const ClapTrap& other)
 {
-	std::cout << "Copy constructor called" << std::endl;
+	std::cout << "ClapTrap copy constructor called" << std::endl;
 	*this = other;
 }
 
@@ -63,4 +63,20 @@ void ClapTrap::beRepaired(unsigned int amount) {
     _hitPoints += amount;
     std::cout << "ClapTrap " << _name << " repairs " << amount
               << " HP, now has " << _hitPoints << " HP!" << std::endl;
+}
+
+std::string ClapTrap::getName() const {
+    return _name;
+}
+
+unsigned int ClapTrap::getAttackDamage() const {
+    return _attackDamage;
+}
+
+unsigned int ClapTrap::getEnergyPoints() const {
+    return _energyPoints;
+}
+
+unsigned int ClapTrap::getHitPoints() const {
+    return _hitPoints;
 }
