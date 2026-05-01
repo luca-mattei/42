@@ -1,9 +1,11 @@
-NAME = scavtrap
+NAME = forms
 
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRCS = main.cpp ../ex00/ClapTrap.cpp ScavTrap.cpp
+SRCS = main.cpp Bureaucrat.cpp AForm.cpp \
+       ShrubberyCreationForm.cpp RobotomyRequestForm.cpp \
+       PresidentialPardonForm.cpp Intern.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 all: $(NAME)

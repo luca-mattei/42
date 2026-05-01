@@ -1,5 +1,5 @@
 #include "ScavTrap.hpp"
-#include "ClapTrap.hpp"
+#include "../ex00/ClapTrap.hpp"
 
 
 //takeDamage et beRepaired c'est affiche ClapTrap car ils herite de lui sans override

@@ -1,9 +1,9 @@
-NAME = scavtrap
+NAME = serializer
 
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRCS = main.cpp ../ex00/ClapTrap.cpp ScavTrap.cpp
+SRCS = main.cpp Serializer.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 all: $(NAME)
