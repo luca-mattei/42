@@ -10,15 +10,15 @@ int main() {
     std::cout << "Data.value       : " << original->value << std::endl;
     std::cout << "Data.name        : " << original->name << std::endl;
 
-    uintptr_t raw = Serializer::serialize(original);
-    std::cout << "\nSerialized (int) : " << raw << std::endl;
+    uintptr_t addressAsInteger = Serializer::serialize(original);
+    std::cout << "\nAddress as integer : " << addressAsInteger << std::endl;
 
-    Data* result = Serializer::deserialize(raw);
-    std::cout << "Deserialized ptr : " << result << std::endl;
-    std::cout << "Data.value       : " << result->value << std::endl;
-    std::cout << "Data.name        : " << result->name << std::endl;
+    Data* recovered = Serializer::deserialize(addressAsInteger);
+    std::cout << "Recovered pointer  : " << recovered << std::endl;
+    std::cout << "Data.value         : " << recovered->value << std::endl;
+    std::cout << "Data.name          : " << recovered->name << std::endl;
 
-    if (result == original)
+    if (recovered == original)
         std::cout << "\nSuccess: pointers are equal" << std::endl;
     else
         std::cout << "\nFailure: pointers differ" << std::endl;

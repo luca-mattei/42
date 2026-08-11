@@ -1,7 +1,6 @@
 #include "ScalarConverter.hpp"
 
-// --- Fonctions de détection ---
-
+//'c' entoure de "\'" et 3 de longueur 1 seul charctere au milieu
 static bool isChar(const std::string& s) {
     return s.length() == 3 && s[0] == '\'' && s[2] == '\'';
 }
@@ -10,7 +9,7 @@ static bool isPseudoLiteral(const std::string& s) {
     return s == "-inff" || s == "+inff" || s == "nanf"
         || s == "-inf"  || s == "+inf"  || s == "nan";
 }
-
+//commence par + ou - ou rien, check si tout est digit et si ya qqch apres les eventuels signes
 static bool isInt(const std::string& s) {
     size_t i = 0;
     if (s[i] == '-' || s[i] == '+') i++;
@@ -29,7 +28,11 @@ static bool isFloat(const std::string& s) {
     if (tmp[i] == '-' || tmp[i] == '+') i++;
     if (i == tmp.length()) return false;
     for (; i < tmp.length(); i++) {
-        if (tmp[i] == '.') { hasDot = true; continue; }
+        if (tmp[i] == '.') { 
+            if (hasDot) return false; // pas 2 points
+            hasDot = true;
+            continue;   
+        }
         if (!std::isdigit(tmp[i])) return false;
     }
     return hasDot;
@@ -47,7 +50,6 @@ static bool isDouble(const std::string& s) {
     return hasDot;
 }
 
-// --- Fonctions d'affichage ---
 
 static void printChar(double d) {
     if (std::isnan(d) || std::isinf(d))
@@ -89,26 +91,23 @@ static void printDouble(double d) {
                   << d << std::endl;
 }
 
-// --- Conversion principale ---
 
 void ScalarConverter::convert(const std::string& s) {
     double d;
 
     if (isChar(s)) {
-        // char → on prend le caractère entre guillemets
         d = static_cast<double>(s[1]);
     }
     else if (isPseudoLiteral(s)) {
-        // pseudo-literals : nan, inf
         if (s == "nanf" || s == "nan")
-            d = std::numeric_limits<double>::quiet_NaN();  // pas de strtod nécessaire
+            d = std::numeric_limits<double>::quiet_NaN();
         else if (s == "+inff" || s == "+inf")
             d = std::numeric_limits<double>::infinity();
         else
             d = -std::numeric_limits<double>::infinity();
     }
     else if (isInt(s)) {
-        d = static_cast<double>(std::atoi(s.c_str()));
+        d = std::strtod(s.c_str(), NULL);
     }
     else if (isFloat(s)) {
         d = static_cast<double>(std::atof(s.c_str()));
